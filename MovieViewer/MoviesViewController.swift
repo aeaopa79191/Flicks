@@ -10,17 +10,20 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var SearchBar: UISearchBar!
     
     var movies: [NSDictionary]?
+    var filteredData: [NSDictionary]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+        SearchBar.delegate = self
         
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     
@@ -46,6 +49,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             NSLog("response: \(responseDictionary)")
                             
                             self.movies = responseDictionary["results"] as! [NSDictionary]
+                             self.filteredData = self.movies
                             self.tableView.reloadData()
                             
                     }
@@ -63,18 +67,19 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-    
-        if let movies = movies{
+        
+        if let movies = filteredData {
             return movies.count
-        }else{
+        } else {
             return 0
         }
+        
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
-        let movie = movies![indexPath.row]
+        let movie = filteredData![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         let baseUrl = "http://image.tmdb.org/t/p/w500"
@@ -100,6 +105,32 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.reloadData()
         refreshControl.endRefreshing()
     }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            filteredData = movies
+        } else {
+            filteredData = movies?.filter({ (movie: NSDictionary) -> Bool in
+                if let title = movie["title"] as? String {
+                    if title.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                        
+                        return  true
+                    } else {
+                        return false
+                    }
+                }
+                return false
+            })
+        }
+        tableView.reloadData()
+    }
+    
+    @IBAction func onTap(sender: AnyObject) {
+        view.endEditing(true)
+    }
+
+    
+    
 
     /*
     // MARK: - Navigation
