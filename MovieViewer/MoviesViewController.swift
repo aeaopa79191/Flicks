@@ -124,10 +124,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
         tableView.reloadData()
     }
-    
-    @IBAction func onTap(sender: AnyObject) {
-        view.endEditing(true)
-    }
+
+
 
     
     
