@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		54592F906CD85F89287C5D06 /* Pods_MovieViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610E36ABD329CA1728A932F4 /* Pods_MovieViewer.framework */; };
+		BE007A341C5715DE00FF803D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE007A331C5715DE00FF803D /* DetailViewController.swift */; };
 		BE673BA01C3F364F00C2DF6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE673B9F1C3F364F00C2DF6A /* AppDelegate.swift */; };
 		BE673BA51C3F364F00C2DF6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE673BA31C3F364F00C2DF6A /* Main.storyboard */; };
 		BE673BA71C3F364F00C2DF6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE673BA61C3F364F00C2DF6A /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		0E7C326A58CE0065BDFFCE91 /* Pods-MovieViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieViewer/Pods-MovieViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		610E36ABD329CA1728A932F4 /* Pods_MovieViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE007A331C5715DE00FF803D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BE673B9C1C3F364F00C2DF6A /* MovieViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE673B9F1C3F364F00C2DF6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE673BA41C3F364F00C2DF6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				BE673BB11C3F3A2B00C2DF6A /* MoviesViewController.swift */,
+				BE007A331C5715DE00FF803D /* DetailViewController.swift */,
 			);
 			name = "view controller";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				BE673BA01C3F364F00C2DF6A /* AppDelegate.swift in Sources */,
 				BE673BB21C3F3A2B00C2DF6A /* MoviesViewController.swift in Sources */,
 				BE673BB51C4A30D600C2DF6A /* MovieCell.swift in Sources */,
+				BE007A341C5715DE00FF803D /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
