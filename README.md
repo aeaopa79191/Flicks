@@ -55,8 +55,7 @@ It was difficult to install the pod becuase I dont really know how to use the te
     
     
     
-    
-    # Project 2 - *Name of App Here*
+# Project 2 - *Name of App Here*
 
 **Name of your app** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
