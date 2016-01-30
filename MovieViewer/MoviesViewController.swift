@@ -150,5 +150,20 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Pass the selected object to the new view controller.
     }
     
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        self.SearchBar.setShowsCancelButton(true, animated: true)
+    }
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        
+        self.SearchBar.setShowsCancelButton(false, animated: true)
+        SearchBar.resignFirstResponder()
+        SearchBar.text = ""
+        filteredData = movies
+        tableView.reloadData()
+    }
+    
+    
+    
 
 }
