@@ -1,4 +1,4 @@
-# Project 1 - *Flicks*
+# Project 1 - *Flicks part 1*
 
 **MovieViewer** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
@@ -55,7 +55,7 @@ It was difficult to install the pod becuase I dont really know how to use the te
     
     
     
-# Project 2 - *Name of App Here*
+# Project 2 - *Flicks part 2*
 
 **Name of your app** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
