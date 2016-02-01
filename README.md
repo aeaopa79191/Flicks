@@ -57,7 +57,7 @@ It was difficult to install the pod becuase I dont really know how to use the te
     
 # Project 2 - *Flicks part 2*
 
-**Name of your app** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flicks part 2** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **15** hours spent in total
 
