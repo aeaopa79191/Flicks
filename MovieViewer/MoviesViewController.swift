@@ -57,8 +57,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 }
         });
         task.resume()
-        
-
         // Do any additional setup after loading the view.
     }
 
@@ -93,7 +91,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.titleLable.text = title
         cell.overviewLable.text = overview
         
-        
+        //Customizing the cell selection effect
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.grayColor()
+        cell.selectedBackgroundView = backgroundView
         
         print("row \(indexPath.row)")
         return cell
