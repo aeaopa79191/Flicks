@@ -72,7 +72,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         } else {
             return 0
         }
-        
     }
     
     
@@ -129,11 +128,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.reloadData()
     }
 
-
-
-    
-    
-
     
     // MARK: - Navigation
 
@@ -145,8 +139,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         let detailViewController = segue.destinationViewController as! DetailViewController
         detailViewController.movie = movie
-        
-        
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }

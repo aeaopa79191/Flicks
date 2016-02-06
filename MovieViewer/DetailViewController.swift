@@ -30,17 +30,13 @@ class DetailViewController: UIViewController {
         overviewLable.text = overview as? String
         overviewLable.sizeToFit()
         
-         let baseUrl = "http://image.tmdb.org/t/p/w500"
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
         
         if let posterPath = movie["poster_path"] as? String {
             let imageUrl = NSURL(string: baseUrl + posterPath)
             posterImageView.setImageWithURL(imageUrl!)
         }
-        
-        
-        
         print(movie)
-
         // Do any additional setup after loading the view.
     }
 
