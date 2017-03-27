@@ -26,27 +26,30 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         SearchBar.delegate = self
         
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
     
         let refreshControl = UIRefreshControl()
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string:"https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
-        let request = NSURLRequest(URL: url!)
-        let session = NSURLSession(
-            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+//        let url = URL(string:"https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
+        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+//        let request = URLRequest(url: url!)
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
             delegate:nil,
-            delegateQueue:NSOperationQueue.mainQueue()
+            delegateQueue:OperationQueue.main
         )
         
-        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
-        tableView.insertSubview(refreshControl, atIndex: 0)
+        refreshControl.addTarget(self, action: #selector(MoviesViewController.refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
         
-        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+        let task : URLSessionDataTask = session.dataTask(with: request,
             completionHandler: { (dataOrNil, response, error) in
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
                 if let data = dataOrNil {
-                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                        data, options:[]) as? NSDictionary {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
                             NSLog("response: \(responseDictionary)")
                             
                             self.movies = responseDictionary["results"] as! [NSDictionary]
@@ -65,7 +68,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         if let movies = filteredData {
             return movies.count
@@ -75,16 +78,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         let movie = filteredData![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         
         if let posterPath = movie["poster_path"] as? String {
-        let imageUrl = NSURL(string: baseUrl + posterPath)
-        cell.posterView.setImageWithURL(imageUrl!)
+        let imageUrl = URL(string: baseUrl + posterPath)
+        cell.posterView.setImageWith(imageUrl!)
         }
         
         cell.titleLable.text = title
@@ -92,14 +95,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         //Customizing the cell selection effect
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.grayColor()
+        backgroundView.backgroundColor = UIColor.gray
         cell.selectedBackgroundView = backgroundView
         
         print("row \(indexPath.row)")
         return cell
     }
     
-    func refreshControlAction(refreshControl: UIRefreshControl) {
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
         
         // Make network request to fetch latest data
         
@@ -109,13 +112,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         refreshControl.endRefreshing()
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             filteredData = movies
         } else {
             filteredData = movies?.filter({ (movie: NSDictionary) -> Bool in
                 if let title = movie["title"] as? String {
-                    if title.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                    if title.range(of: searchText, options: .caseInsensitive) != nil {
                         
                         return  true
                     } else {
@@ -132,22 +135,22 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
-        let indexPath = tableView.indexPathForCell(cell)
+        let indexPath = tableView.indexPath(for: cell)
         let movie = filteredData![indexPath!.row]
         
-        let detailViewController = segue.destinationViewController as! DetailViewController
+        let detailViewController = segue.destination as! DetailViewController
         detailViewController.movie = movie
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
     
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.SearchBar.setShowsCancelButton(true, animated: true)
     }
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         self.SearchBar.setShowsCancelButton(false, animated: true)
         SearchBar.resignFirstResponder()
